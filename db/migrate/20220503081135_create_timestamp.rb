@@ -1,0 +1,18 @@
+class CreateTimestamp < ActiveRecord::Migration[6.1]
+  def change
+    create_table :glueby_timestamps do |t|
+      t.string   :txid
+      t.integer  :status, null: false, default: 0
+      t.string   :content_hash
+      t.string   :prefix
+      t.string   :wallet_id
+      t.integer  :timestamp_type, null: false, default: 0
+      t.string   :p2c_address
+      t.string   :payment_base
+      t.bigint   :prev_id
+      t.boolean  :latest, null: false, default: true
+    end
+
+    add_index :glueby_timestamps, [:prev_id], unique: true
+  end
+end
