@@ -1,24 +1,10 @@
-# README
+# CaRePi API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+APi of CaRePi
 
-Things you may want to cover:
+> CaRePi is **Ca**rd **Re**ader de **Pi** tte suru yatu
 
-* Ruby version
+## spec
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Rails 6.1.5.1
+Ruby ruby 3.1.2
