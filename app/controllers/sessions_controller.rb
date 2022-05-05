@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  require 'http'
   before_action :load_carepi_wallet
 
   def new
@@ -70,7 +71,7 @@ class SessionsController < ApplicationController
     end
 
     # send message to slack
-    send_message_to_slack(slack_message) if params[:send_slack]
+    send_message_to_slack(slack_message) unless params[:no_send_slack]
 
     # return status_code
     response_success('session', 'new', slack_message)
@@ -100,5 +101,6 @@ class SessionsController < ApplicationController
                            text: _message,
                            as_user: true
                          })
+    puts JSON.pretty_generate(JSON.parse(response.body))
   end
 end
