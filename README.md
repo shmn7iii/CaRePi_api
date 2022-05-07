@@ -21,15 +21,15 @@ SLACK_API_TOKEN = 'xoxb-3467524078292-3456551248167-EERM5tlY8vL23GDdoEmAZMm8'
 SLACK_CHANNEL = 'test'
 ```
 
-### Run bin/setup
+### 2. Run bin/setup
 
 ```bash
-./bin/setup
+$ ./bin/setup
 ```
 
 ## reset
 
 ```bash
-./bin/rails db:migrate:reset
-./bin/setup
+$ ./bin/rails db:migrate:reset
+$ ./bin/setup
 ```
