@@ -7,7 +7,7 @@ API of CaRePi
 ## spec
 
 Rails 6.1.5.1  
-Ruby ruby 3.1.2
+Ruby 3.1.2
 
 ## setup
 
@@ -21,15 +21,16 @@ SLACK_API_TOKEN = 'xoxb-3467524078292-3456551248167-EERM5tlY8vL23GDdoEmAZMm8'
 SLACK_CHANNEL = 'test'
 ```
 
-### 2. Run bin/setup
+### 2. Run via Docker Compose
 
 ```bash
-$ ./bin/setup
+$ docker-compose up -d
+$ docker-compose exec rails ./bin/setup
 ```
 
 ## reset
 
 ```bash
-$ ./bin/rails db:migrate:reset
-$ ./bin/setup
+$ docker-compose exec rails ./bin/rails db:migrate:reset
+$ docker-compose exec rails ./bin/setup
 ```
