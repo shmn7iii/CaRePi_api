@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  require 'http'
   before_action :load_carepi_wallet
 
   def new
@@ -33,7 +32,6 @@ class SessionsController < ApplicationController
       end
     end
 
-    slack_message = ''
     color_id_byte = Tapyrus::Color::ColorIdentifier.parse_from_payload(@color_id.to_s.htb)
     token = Glueby::Contract::Token.new(color_id: color_id_byte)
 
@@ -46,7 +44,8 @@ class SessionsController < ApplicationController
         pay2user(@wallet_id)
         retry
       end
-      slack_message = "#{student_number} が退室しました"
+
+      response_success('session', 'new', "#{student_number} が退室しました")
     else
       # reissue token
       begin
@@ -67,14 +66,9 @@ class SessionsController < ApplicationController
         pay2user(@wallet_id)
         retry
       end
-      slack_message = "#{student_number} が入室しました"
+
+      response_success('session', 'new', "#{student_number} が入室しました")
     end
-
-    # send message to slack
-    send_message_to_slack(slack_message) unless params[:no_send_slack]
-
-    # return status_code
-    response_success('session', 'new', slack_message)
   end
 
   private
@@ -92,15 +86,5 @@ class SessionsController < ApplicationController
   def generate(_address)
     Glueby::Internal::RPC.client.generatetoaddress(1, _address, ENV['AUTH_KEY'])
     system('rails glueby:block_syncer:start')
-  end
-
-  def send_message_to_slack(_message)
-    response = HTTP.post('https://slack.com/api/chat.postMessage', params: {
-                           token: ENV['SLACK_API_TOKEN'],
-                           channel: ENV['SLACK_CHANNEL'],
-                           text: _message,
-                           as_user: true
-                         })
-    puts JSON.pretty_generate(JSON.parse(response.body))
   end
 end
