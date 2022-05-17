@@ -1,6 +1,7 @@
 set :output, 'log/crontab.log'
-set :environment, ENV['RAILS_ENV']
+ENV.each { |k, v| env(k, v) }
+set :environment, :development
 
-every '0 0 * * *' do
+every '0 15 * * *' do
   rake 'carepi:leaveall'
 end
