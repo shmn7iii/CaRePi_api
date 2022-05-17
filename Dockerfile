@@ -3,7 +3,7 @@ FROM ruby:3.1.2
 EXPOSE 3000
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends nodejs \
+  && apt-get install -y --no-install-recommends nodejs cron \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir /app
